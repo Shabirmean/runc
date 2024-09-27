@@ -53,6 +53,20 @@ value for "bundle" is the current directory.`
 )
 
 func main() {
+	message := "DO NOT USE IN ACTUAL CLUSTERS; THIS IS A TEST runc BUILD"
+	// Create the banner
+	banner := fmt.Sprintf(`
+  %s
+  %s
+  %s
+       _,-._
+      / \_/ \
+      >-(_)-<
+      \_/ \_/
+        `+"`-'"+`
+`, strings.Repeat("*", len(message)+4), message, strings.Repeat("*", len(message)+4))
+	fmt.Println(banner)
+
 	app := cli.NewApp()
 	app.Name = "runc"
 	app.Usage = usage

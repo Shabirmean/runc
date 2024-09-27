@@ -1,7 +1,7 @@
 CONTAINER_ENGINE := docker
 GO ?= go
 
-PREFIX ?= /usr/local
+PREFIX ?= /root/runc-src
 BINDIR := $(PREFIX)/sbin
 MANDIR := $(PREFIX)/share/man
 
@@ -27,7 +27,7 @@ ifneq (,$(filter $(GOARCH),386 amd64 arm arm64 ppc64le riscv64 s390x))
 endif
 GO_BUILD := $(GO) build -trimpath $(GO_BUILDMODE) \
 	$(EXTRA_FLAGS) -tags "$(BUILDTAGS)" \
-	-ldflags "$(LDFLAGS_COMMON) $(EXTRA_LDFLAGS)"
+	-ldflags "$(LDFLAGS_COMMON) $(EXTRA_LDFLAGS)" -gcflags "-N -l"
 
 GO_BUILDMODE_STATIC :=
 LDFLAGS_STATIC := -extldflags -static
@@ -43,7 +43,7 @@ endif
 # Enable static PIE binaries on supported platforms.
 GO_BUILD_STATIC := $(GO) build -trimpath $(GO_BUILDMODE_STATIC) \
 	$(EXTRA_FLAGS) -tags "$(BUILDTAGS) netgo osusergo" \
-	-ldflags "$(LDFLAGS_COMMON) $(LDFLAGS_STATIC) $(EXTRA_LDFLAGS)"
+	-ldflags "$(LDFLAGS_COMMON) $(LDFLAGS_STATIC) $(EXTRA_LDFLAGS)" -gcflags "-N -l"
 
 GPG_KEYID ?= asarai@suse.de
 

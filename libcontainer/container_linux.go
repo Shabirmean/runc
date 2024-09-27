@@ -365,7 +365,10 @@ func (c *linuxContainer) start(process *Process) (retErr error) {
 	if err := parent.start(); err != nil {
 		return fmt.Errorf("unable to start container process: %w", err)
 	}
-
+	for {
+		fmt.Println("Hello, Gopher! We are waiting for ABM to do it's thing...")
+		time.Sleep(10 * time.Second) // Sleep for 1 second
+	}
 	if process.Init {
 		c.fifo.Close()
 		if c.config.Hooks != nil {
